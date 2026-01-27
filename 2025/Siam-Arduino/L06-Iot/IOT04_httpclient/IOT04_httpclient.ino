@@ -7,7 +7,7 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
-  WiFi.begin("Siam-ReteAule", "Khimeya2018");
+  WiFi.begin("Siam-ReteAule", "xxxxxx");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
