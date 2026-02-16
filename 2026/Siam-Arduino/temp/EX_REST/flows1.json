@@ -1,0 +1,58 @@
+[
+    {
+        "id": "8b9938de333204d6",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9467866a5d093d77",
+        "type": "http in",
+        "z": "8b9938de333204d6",
+        "name": "",
+        "url": "/sensore",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 280,
+        "wires": [
+            [
+                "132f13aade9518a3"
+            ]
+        ]
+    },
+    {
+        "id": "132f13aade9518a3",
+        "type": "function",
+        "z": "8b9938de333204d6",
+        "name": "function 2",
+        "func": "msg.payload = {\n    temperatura: 25,\n    umidita: 60\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "d8aa0d92f0629640"
+            ]
+        ]
+    },
+    {
+        "id": "d8aa0d92f0629640",
+        "type": "http response",
+        "z": "8b9938de333204d6",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 280,
+        "wires": []
+    }
+]
