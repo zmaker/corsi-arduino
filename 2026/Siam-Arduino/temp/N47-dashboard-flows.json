@@ -1,0 +1,295 @@
+[
+    {
+        "id": "2a2b8378210d3e96",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f387fada1dfa17d0",
+        "type": "serial in",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "serial": "237278d9a1e4aa9b",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "f27735fccf093ca1",
+                "4f6fdd61fb201ff8",
+                "082ff4cc4b56d301",
+                "039b38856d483a22"
+            ]
+        ]
+    },
+    {
+        "id": "9993a7340f122460",
+        "type": "debug",
+        "z": "2a2b8378210d3e96",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f27735fccf093ca1",
+        "type": "switch",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "20",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 200,
+        "wires": [
+            [
+                "9993a7340f122460"
+            ]
+        ]
+    },
+    {
+        "id": "4f6fdd61fb201ff8",
+        "type": "ui_gauge",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "group": "b3cd12aa9a2e4119",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 410,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "082ff4cc4b56d301",
+        "type": "ui_chart",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "group": "b3cd12aa9a2e4119",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 410,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "039c00b1b3dfd118",
+        "type": "sqlite",
+        "z": "2a2b8378210d3e96",
+        "mydb": "7c1382e11ad70b60",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "6276f69cd7211939"
+            ]
+        ]
+    },
+    {
+        "id": "6c7c5d66513bd05d",
+        "type": "inject",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE dati ( temperatura REAL, ts INTEGER, tipo TEXT );",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 500,
+        "wires": [
+            [
+                "039c00b1b3dfd118"
+            ]
+        ]
+    },
+    {
+        "id": "6276f69cd7211939",
+        "type": "debug",
+        "z": "2a2b8378210d3e96",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "039b38856d483a22",
+        "type": "function",
+        "z": "2a2b8378210d3e96",
+        "name": "function 1",
+        "func": "let temp = parseFloat(msg.payload);\nlet ts = Date.now();\n\nmsg.topic = `INSERT INTO dati (temperatura, ts, tipo) VALUES (${temp}, ${ts}, 'temp')`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 440,
+        "wires": [
+            [
+                "039c00b1b3dfd118"
+            ]
+        ]
+    },
+    {
+        "id": "6590c3275cd691cc",
+        "type": "inject",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from dati limit 10;",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 580,
+        "wires": [
+            [
+                "039c00b1b3dfd118"
+            ]
+        ]
+    },
+    {
+        "id": "237278d9a1e4aa9b",
+        "type": "serial-port",
+        "name": "arduino",
+        "serialport": "COM5",
+        "serialbaud": "9600",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "b3cd12aa9a2e4119",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "8d602b64dc64b7bc",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7c1382e11ad70b60",
+        "type": "sqlitedb",
+        "db": "D:\\database1.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "8d602b64dc64b7bc",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

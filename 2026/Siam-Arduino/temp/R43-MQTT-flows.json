@@ -1,0 +1,117 @@
+[
+    {
+        "id": "1e02d38e1279f182",
+        "type": "mqtt in",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "topic": "sensors/cucina/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "a0da59e6090c2d47",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "332b1fd99636e7d3"
+            ]
+        ]
+    },
+    {
+        "id": "7cc1dcb6fff4d7b9",
+        "type": "mqtt out",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "topic": "sensors/cucina/temp",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a0da59e6090c2d47",
+        "x": 500,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "597d5c3dae0a4005",
+        "type": "inject",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "23",
+        "payloadType": "num",
+        "x": 270,
+        "y": 260,
+        "wires": [
+            [
+                "7cc1dcb6fff4d7b9"
+            ]
+        ]
+    },
+    {
+        "id": "332b1fd99636e7d3",
+        "type": "debug",
+        "z": "77e01b9dc51bf8b3",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a0da59e6090c2d47",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
