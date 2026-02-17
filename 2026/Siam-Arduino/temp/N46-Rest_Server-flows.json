@@ -1,0 +1,252 @@
+[
+    {
+        "id": "2a2b8378210d3e96",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4f20f4e545dffd82",
+        "type": "inject",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "e26e352c40c198e1"
+            ]
+        ]
+    },
+    {
+        "id": "e26e352c40c198e1",
+        "type": "function",
+        "z": "2a2b8378210d3e96",
+        "name": "function 5",
+        "func": "msg.payload = [\n    { id: 1, name: \"pere\", price: 12.3 },\n    { id: 2, name: \"mele\", price: 23.4 },\n    { id: 3, name: \"kiwi\", price: 34.5 }\n];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 140,
+        "wires": [
+            [
+                "80e59a1bb3f3d183"
+            ]
+        ]
+    },
+    {
+        "id": "80e59a1bb3f3d183",
+        "type": "change",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "table",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ccecb9ed1ebb0976",
+        "type": "http in",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "url": "/products",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 280,
+        "wires": [
+            [
+                "bda7bb6b93e09c6a"
+            ]
+        ]
+    },
+    {
+        "id": "2955b83fff3b306e",
+        "type": "http in",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "url": "/product/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 280,
+        "y": 340,
+        "wires": [
+            [
+                "2f185c463ae50011"
+            ]
+        ]
+    },
+    {
+        "id": "2d58483484437ee2",
+        "type": "http in",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "url": "/product",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "91b02186488c906b"
+            ]
+        ]
+    },
+    {
+        "id": "8a3f9776822ac2ec",
+        "type": "http in",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "url": "/product/:id",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 280,
+        "y": 460,
+        "wires": [
+            [
+                "1254f865a91490ee"
+            ]
+        ]
+    },
+    {
+        "id": "bda7bb6b93e09c6a",
+        "type": "change",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "table",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 280,
+        "wires": [
+            [
+                "ae14817332aa1f37"
+            ]
+        ]
+    },
+    {
+        "id": "ae14817332aa1f37",
+        "type": "http response",
+        "z": "2a2b8378210d3e96",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 810,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2f185c463ae50011",
+        "type": "function",
+        "z": "2a2b8378210d3e96",
+        "name": "function 6",
+        "func": "const products = flow.get(\"table\") || [];\n\nconst id = parseInt(msg.req.params.id);\n\nconst product = products.find( p => p.id === id ); \n\nif (product) {\n    msg.payload = product;\n    msg.statusCode = 200;\n} else {\n    msg.payload = { error: \"prodotto non trovato\" };\n    msg.statusCode = 404;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "ae14817332aa1f37"
+            ]
+        ]
+    },
+    {
+        "id": "91b02186488c906b",
+        "type": "function",
+        "z": "2a2b8378210d3e96",
+        "name": "function 7",
+        "func": "let products = flow.get(\"table\") || [];\n\nlet p1 = msg.payload;\n\nif ( !p1.name || typeof p1.price !== 'number' ) {\n    msg.statusCode = 400;\n    msg.payload = { error: \"dati errati\" };\n    return msg;\n}\n\nconst newid =  (products.length > 0) ? (Math.max(...products.map(p => p.id) ) + 1) : 1;\n\nconst product = {\n    id: newid,\n    name: p1.name,\n    price: p1.price\n};\n\nproducts.push(product);\n\nflow.set(\"table\", products);\n\nmsg.statusCode = 201;\nmsg.payload = product;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 400,
+        "wires": [
+            [
+                "ae14817332aa1f37"
+            ]
+        ]
+    },
+    {
+        "id": "1254f865a91490ee",
+        "type": "function",
+        "z": "2a2b8378210d3e96",
+        "name": "function 8",
+        "func": "let products = flow.get(\"table\") || [];\n\nconst id = parseInt(msg.req.params.id);\n\nconst index = products.findIndex( p => p.id === id ); \n\nif (index === -1) {\n    msg.payload = { error: \"prodotto non trovato\" };\n    msg.statusCode = 404;\n    return msg;\n}\n\nconst data = msg.payload;\n\nif (data.name !== undefined) {\n    products[index].name = data.name;\n}\nif (data.price !== undefined && typeof data.price === 'number') {\n    products[index].price = data.price;\n}\n\nflow.set(\"table\", products);\n\nmsg.statusCode = 200;\nmsg.payload = products[index];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "ae14817332aa1f37"
+            ]
+        ]
+    }
+]

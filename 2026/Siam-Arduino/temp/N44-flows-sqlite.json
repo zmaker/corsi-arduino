@@ -1,0 +1,147 @@
+[
+    {
+        "id": "07ba636f1338afc8",
+        "type": "sqlite",
+        "z": "77e01b9dc51bf8b3",
+        "mydb": "94dda9cfb3e228f8",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "fba4c7e7e43a7e65"
+            ]
+        ]
+    },
+    {
+        "id": "faf6cf61599909a4",
+        "type": "inject",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE COFFEE ( timestamp INT PRIMARY KEY NOT NULL, value INT NOT NULL, flag INT)",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "07ba636f1338afc8"
+            ]
+        ]
+    },
+    {
+        "id": "fba4c7e7e43a7e65",
+        "type": "debug",
+        "z": "77e01b9dc51bf8b3",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b5ed669e4a87eb49",
+        "type": "inject",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "00313aff90744711"
+            ]
+        ]
+    },
+    {
+        "id": "00313aff90744711",
+        "type": "function",
+        "z": "77e01b9dc51bf8b3",
+        "name": "function 1",
+        "func": "var n1 = Math.round( Math.random()*100 );\nvar msg1 = {\n\"topic\": \"INSERT INTO COFFEE (timestamp, value, flag) VALUES (\"+msg.payload +\", \"+n1+\", 1)\"\n};\nreturn msg1;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "07ba636f1338afc8"
+            ]
+        ]
+    },
+    {
+        "id": "36c24574f07d357a",
+        "type": "inject",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM COFFEE;",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 400,
+        "wires": [
+            [
+                "07ba636f1338afc8"
+            ]
+        ]
+    },
+    {
+        "id": "94dda9cfb3e228f8",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\paolo\\Desktop\\miodatabase.db",
+        "mode": "RWC"
+    }
+]

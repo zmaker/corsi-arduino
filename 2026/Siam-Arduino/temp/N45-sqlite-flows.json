@@ -1,0 +1,170 @@
+[
+    {
+        "id": "fcf35e8d1e1fda39",
+        "type": "sqlite",
+        "z": "77e01b9dc51bf8b3",
+        "mydb": "94dda9cfb3e228f8",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 400,
+        "y": 500,
+        "wires": [
+            [
+                "6bb9daa0e0e1cb81"
+            ]
+        ]
+    },
+    {
+        "id": "d2f2cad6152c0dc9",
+        "type": "inject",
+        "z": "77e01b9dc51bf8b3",
+        "name": "Select",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM COFFEE;",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "fcf35e8d1e1fda39"
+            ]
+        ]
+    },
+    {
+        "id": "6bb9daa0e0e1cb81",
+        "type": "change",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "table",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 500,
+        "wires": [
+            [
+                "e786302e720ff956"
+            ]
+        ]
+    },
+    {
+        "id": "e786302e720ff956",
+        "type": "debug",
+        "z": "77e01b9dc51bf8b3",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "aebfa50d62dd4d54",
+        "type": "http in",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "url": "/table",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "b3234d3b9a7e8afd"
+            ]
+        ]
+    },
+    {
+        "id": "56b329e107d7b875",
+        "type": "http response",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "21502767d270192f",
+        "type": "template",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<body>\n    <h1>Coffee</h1>\n    <table border='1'>\n        <tr>\n            <th>ts</th>\n            <th>temp</th>\n            <th>flag</th>\n        </tr>\n        {{#payload}}\n        <tr>\n            <td>{{timestamp}}</td>\n            <td>{{value}}</td>\n            <td>{{flag}}</td>\n        </tr>\n        {{/payload}}\n    </table>\n</body>\n</html>",
+        "output": "str",
+        "x": 560,
+        "y": 620,
+        "wires": [
+            [
+                "56b329e107d7b875"
+            ]
+        ]
+    },
+    {
+        "id": "b3234d3b9a7e8afd",
+        "type": "change",
+        "z": "77e01b9dc51bf8b3",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "table",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 620,
+        "wires": [
+            [
+                "21502767d270192f"
+            ]
+        ]
+    },
+    {
+        "id": "94dda9cfb3e228f8",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\paolo\\Desktop\\miodatabase.db",
+        "mode": "RWC"
+    }
+]

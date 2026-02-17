@@ -1,0 +1,260 @@
+[
+    {
+        "id": "2fad3c50e6a34891",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "59ff2a1.fa600d4",
+        "type": "http in",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "54c1e70d.ab3e18"
+            ]
+        ]
+    },
+    {
+        "id": "54c1e70d.ab3e18",
+        "type": "template",
+        "z": "2fad3c50e6a34891",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello World!</h1>\n    </body>\n</html>",
+        "x": 310,
+        "y": 100,
+        "wires": [
+            [
+                "266c286f.d993d8"
+            ]
+        ]
+    },
+    {
+        "id": "266c286f.d993d8",
+        "type": "http response",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2668fe8235ef09bf",
+        "type": "comment",
+        "z": "2fad3c50e6a34891",
+        "name": "Hello - generato dinamicamente",
+        "info": "",
+        "x": 230,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "c8107088.37ef9",
+        "type": "http in",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "url": "/hello-json",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 480,
+        "wires": [
+            [
+                "4e8237da.b17dc8"
+            ]
+        ]
+    },
+    {
+        "id": "4e8237da.b17dc8",
+        "type": "template",
+        "z": "2fad3c50e6a34891",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{ \"Hello\": \"World\" }",
+        "x": 350,
+        "y": 480,
+        "wires": [
+            [
+                "65401623.9abfe8"
+            ]
+        ]
+    },
+    {
+        "id": "65401623.9abfe8",
+        "type": "change",
+        "z": "2fad3c50e6a34891",
+        "name": "Set Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 480,
+        "wires": [
+            [
+                "f7d3e35a.082c2"
+            ]
+        ]
+    },
+    {
+        "id": "f7d3e35a.082c2",
+        "type": "http response",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "x": 670,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "abf8c4e22ed6d0e1",
+        "type": "comment",
+        "z": "2fad3c50e6a34891",
+        "name": "Serve Json",
+        "info": "",
+        "x": 160,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b34dd1af.4cb23",
+        "type": "template",
+        "z": "2fad3c50e6a34891",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello {{req.query.name}}!</h1>\n    </body>\n</html>",
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "b828f6a6.47d708"
+            ]
+        ]
+    },
+    {
+        "id": "1052941d.efad6c",
+        "type": "http in",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "url": "/hello-query",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "b34dd1af.4cb23"
+            ]
+        ]
+    },
+    {
+        "id": "b828f6a6.47d708",
+        "type": "http response",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "x": 490,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "90109e867b035812",
+        "type": "comment",
+        "z": "2fad3c50e6a34891",
+        "name": "GET con parametri",
+        "info": "",
+        "x": 190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ce53954b.31ac68",
+        "type": "http response",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "x": 550,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "288a7c0.fd77584",
+        "type": "template",
+        "z": "2fad3c50e6a34891",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello {{req.params.name}}!</h1>\n    </body>\n</html>",
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "ce53954b.31ac68"
+            ]
+        ]
+    },
+    {
+        "id": "7665c67d.899a38",
+        "type": "http in",
+        "z": "2fad3c50e6a34891",
+        "name": "",
+        "url": "/hello-param/:name",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 300,
+        "wires": [
+            [
+                "288a7c0.fd77584"
+            ]
+        ]
+    },
+    {
+        "id": "77abd60e116a8016",
+        "type": "comment",
+        "z": "2fad3c50e6a34891",
+        "name": "Parametri nell'URL",
+        "info": "",
+        "x": 190,
+        "y": 260,
+        "wires": []
+    }
+]
