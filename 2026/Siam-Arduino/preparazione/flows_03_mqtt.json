@@ -1,0 +1,310 @@
+[
+    {
+        "id": "4cfc234c56c2a124",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "90030d4484daa44d",
+        "type": "mqtt in",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "topic": "sensori/dati",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "6f28d8592ae26bce",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "1122a0a5df1cbccc"
+            ]
+        ]
+    },
+    {
+        "id": "4fc99603be97a8bc",
+        "type": "debug",
+        "z": "4cfc234c56c2a124",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "1122a0a5df1cbccc",
+        "type": "json",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "2d3035eb589739e2",
+                "04d06bcc6964aaef"
+            ]
+        ]
+    },
+    {
+        "id": "2d3035eb589739e2",
+        "type": "function",
+        "z": "4cfc234c56c2a124",
+        "name": "sql per inserimento db",
+        "func": "// dati ricevuti dall'ESP32\nlet tipo = msg.payload.sensorId;   // es. temperatura\nlet valore = msg.payload.value;    // es. 23.5\nlet tm = msg.payload.timestamp\n\nlet str = \"INSERT INTO dati_sensori (tipo_misura, valore, data)\"+\n\" VALUES ('\"+tipo +\"', \"+valore+\", '\"+tm+\"')\";\n\nnode.warn(str);\n\nvar msg1 = {\n\"topic\": str };\n\nreturn msg1;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 300,
+        "wires": [
+            [
+                "4fc99603be97a8bc"
+            ]
+        ]
+    },
+    {
+        "id": "04d06bcc6964aaef",
+        "type": "change",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 380,
+        "wires": [
+            [
+                "e2d5805bddb29e68"
+            ]
+        ]
+    },
+    {
+        "id": "e2d5805bddb29e68",
+        "type": "ui_text",
+        "z": "4cfc234c56c2a124",
+        "group": "4329cae43c9f7e23",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temp: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 870,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "e35ef5345a221d99",
+        "type": "mqtt out",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "topic": "sensori/comandi",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6f28d8592ae26bce",
+        "x": 680,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "258523fb9129df1b",
+        "type": "ui_button",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "group": "4329cae43c9f7e23",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 210,
+        "y": 480,
+        "wires": [
+            [
+                "263e6ab2026f5fd1"
+            ]
+        ]
+    },
+    {
+        "id": "263e6ab2026f5fd1",
+        "type": "change",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"id\": 123,     \"valore\": 1 }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 480,
+        "wires": [
+            [
+                "e35ef5345a221d99"
+            ]
+        ]
+    },
+    {
+        "id": "c19312aa9dfb4b2d",
+        "type": "ui_button",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "group": "4329cae43c9f7e23",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 210,
+        "y": 520,
+        "wires": [
+            [
+                "7cb5ac6547ace37b"
+            ]
+        ]
+    },
+    {
+        "id": "7cb5ac6547ace37b",
+        "type": "change",
+        "z": "4cfc234c56c2a124",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"id\": 123,     \"valore\": 0 }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "e35ef5345a221d99"
+            ]
+        ]
+    },
+    {
+        "id": "6f28d8592ae26bce",
+        "type": "mqtt-broker",
+        "name": "hivemq",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4329cae43c9f7e23",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "b10f6a8f043e73b2",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b10f6a8f043e73b2",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

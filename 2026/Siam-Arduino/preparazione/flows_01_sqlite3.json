@@ -1,0 +1,155 @@
+[
+    {
+        "id": "1e15f8ee7c51515f",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a81b9fcc5e0a5143",
+        "type": "sqlite",
+        "z": "1e15f8ee7c51515f",
+        "mydb": "94dda9cfb3e228f8",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "0b6b3927e076718f"
+            ]
+        ]
+    },
+    {
+        "id": "9b709a65937b106a",
+        "type": "inject",
+        "z": "1e15f8ee7c51515f",
+        "name": "crea la tabella",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE COFFEE ( timestamp INT PRIMARY KEY NOT NULL, value INT NOT NULL, flag INT)",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "a81b9fcc5e0a5143"
+            ]
+        ]
+    },
+    {
+        "id": "0b6b3927e076718f",
+        "type": "debug",
+        "z": "1e15f8ee7c51515f",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7bceb1c9a3826e30",
+        "type": "inject",
+        "z": "1e15f8ee7c51515f",
+        "name": "Inserisce un valore",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "d7a06999e00f15a4"
+            ]
+        ]
+    },
+    {
+        "id": "d7a06999e00f15a4",
+        "type": "function",
+        "z": "1e15f8ee7c51515f",
+        "name": "function 1",
+        "func": "var n1 = Math.round( Math.random()*100 );\nvar msg1 = {\n\"topic\": \"INSERT INTO COFFEE (timestamp, value, flag) VALUES (\"+msg.payload +\", \"+n1+\", 1)\"\n};\nreturn msg1;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "a81b9fcc5e0a5143"
+            ]
+        ]
+    },
+    {
+        "id": "2ada9605e4cff03d",
+        "type": "inject",
+        "z": "1e15f8ee7c51515f",
+        "name": "select",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM COFFEE;",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 340,
+        "wires": [
+            [
+                "a81b9fcc5e0a5143"
+            ]
+        ]
+    },
+    {
+        "id": "94dda9cfb3e228f8",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\paolo\\Desktop\\GitHub\\corsi-arduino\\2026\\Siam-Arduino\\miodatabase.db",
+        "mode": "RWC"
+    }
+]
