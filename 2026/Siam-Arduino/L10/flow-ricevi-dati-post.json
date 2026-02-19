@@ -1,0 +1,185 @@
+[
+    {
+        "id": "1c071bcd100f1b74",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f728f1e1f315fada",
+        "type": "sqlite",
+        "z": "1c071bcd100f1b74",
+        "mydb": "ea62c1215f41313b",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "dbsensori",
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "bc3663b1da2b3c86"
+            ]
+        ]
+    },
+    {
+        "id": "d0aa2a8c6186a6a3",
+        "type": "inject",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM caffe",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "f728f1e1f315fada"
+            ]
+        ]
+    },
+    {
+        "id": "bc3663b1da2b3c86",
+        "type": "debug",
+        "z": "1c071bcd100f1b74",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "8e902c9cabe9f9c4",
+        "type": "http in",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "url": "/sensori",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "14c95790600a5f36"
+            ]
+        ]
+    },
+    {
+        "id": "6e8e338c7fc37c9e",
+        "type": "http in",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 400,
+        "wires": [
+            [
+                "2c80c304c69b8ec3"
+            ]
+        ]
+    },
+    {
+        "id": "114316209b2b768d",
+        "type": "http response",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 450,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "2c80c304c69b8ec3",
+        "type": "template",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "114316209b2b768d"
+            ]
+        ]
+    },
+    {
+        "id": "520a8f1a103e9e1e",
+        "type": "http response",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "14c95790600a5f36",
+        "type": "json",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "520a8f1a103e9e1e",
+                "528407acab08957d"
+            ]
+        ]
+    },
+    {
+        "id": "528407acab08957d",
+        "type": "debug",
+        "z": "1c071bcd100f1b74",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ea62c1215f41313b",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\Docente\\Documents\\Lezioni_IOT\\sensori.db",
+        "mode": "RWC"
+    }
+]
