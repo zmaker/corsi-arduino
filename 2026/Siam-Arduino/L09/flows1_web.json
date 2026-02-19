@@ -1,0 +1,270 @@
+[
+    {
+        "id": "661ab54f1af3a8ac",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "69a810efa27d67fc",
+        "type": "inject",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ciao",
+        "payloadType": "str",
+        "x": 170,
+        "y": 100,
+        "wires": [
+            [
+                "426851b590861d60"
+            ]
+        ]
+    },
+    {
+        "id": "426851b590861d60",
+        "type": "debug",
+        "z": "661ab54f1af3a8ac",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "62eafac868434cf6",
+        "type": "comment",
+        "z": "661ab54f1af3a8ac",
+        "name": "Flusso di test",
+        "info": "",
+        "x": 170,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "96f928641460909b",
+        "type": "http in",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "url": "/saluta",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "3bb0fcadfc95de34"
+            ]
+        ]
+    },
+    {
+        "id": "5674453bb3e6e61c",
+        "type": "http response",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3bb0fcadfc95de34",
+        "type": "template",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <body>\n        Hello!\n    </body>\n</html>",
+        "output": "str",
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "5674453bb3e6e61c"
+            ]
+        ]
+    },
+    {
+        "id": "63a2063b9dec2f73",
+        "type": "comment",
+        "z": "661ab54f1af3a8ac",
+        "name": "Esempio server web statico",
+        "info": "",
+        "x": 220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "91f695e8812ec612",
+        "type": "comment",
+        "z": "661ab54f1af3a8ac",
+        "name": "Esempio server web dinamico",
+        "info": "",
+        "x": 220,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f858ad9af741beec",
+        "type": "http in",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "url": "/salutadin",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "fa965b6eebe358b0"
+            ]
+        ]
+    },
+    {
+        "id": "1f62c47a239c2fe5",
+        "type": "http response",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "fa965b6eebe358b0",
+        "type": "template",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <body>\n        <h1>Ciao, {{req.query.nome}}</h1>\n        <h2>{{req.query.cognome}}</h2>\n    </body>\n</html>",
+        "output": "str",
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "1f62c47a239c2fe5"
+            ]
+        ]
+    },
+    {
+        "id": "08f5975812114af9",
+        "type": "comment",
+        "z": "661ab54f1af3a8ac",
+        "name": "Risposta in json",
+        "info": "",
+        "x": 180,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "8e56af1b8b83f3d7",
+        "type": "http in",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "url": "/json1",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 400,
+        "wires": [
+            [
+                "7c23cfdc58d2a044"
+            ]
+        ]
+    },
+    {
+        "id": "343bfc4468a775e6",
+        "type": "http response",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 670,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7c23cfdc58d2a044",
+        "type": "template",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{ \"nome\":\"Mario\", \"cognome\":\"Rossi\" }",
+        "output": "str",
+        "x": 320,
+        "y": 400,
+        "wires": [
+            [
+                "51035079e39f5967"
+            ]
+        ]
+    },
+    {
+        "id": "51035079e39f5967",
+        "type": "change",
+        "z": "661ab54f1af3a8ac",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 400,
+        "wires": [
+            [
+                "343bfc4468a775e6"
+            ]
+        ]
+    }
+]

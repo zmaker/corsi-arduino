@@ -1,0 +1,10 @@
+parte 1
+Arduino Iot Cloud
+
+Progetto per controllare un LED via Dashboard con variabile Lampada RGB - (non funziona molto bene)
+
+parte 2
+- installazione node-red
+- flow semplici
+- flow web e json
+- collegamento di arduino a node-red via seriale e controllo tramite pulsanti inject e web hooks
