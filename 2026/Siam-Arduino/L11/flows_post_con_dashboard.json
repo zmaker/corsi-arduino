@@ -1,0 +1,494 @@
+[
+    {
+        "id": "1c071bcd100f1b74",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f728f1e1f315fada",
+        "type": "sqlite",
+        "z": "1c071bcd100f1b74",
+        "mydb": "ea62c1215f41313b",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "dbsensori",
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "f9d3a0e58ab9f38e",
+                "bc3663b1da2b3c86"
+            ]
+        ]
+    },
+    {
+        "id": "d0aa2a8c6186a6a3",
+        "type": "inject",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * FROM caffe",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "f728f1e1f315fada"
+            ]
+        ]
+    },
+    {
+        "id": "bc3663b1da2b3c86",
+        "type": "debug",
+        "z": "1c071bcd100f1b74",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8e902c9cabe9f9c4",
+        "type": "http in",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "url": "/sensori",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "14c95790600a5f36"
+            ]
+        ]
+    },
+    {
+        "id": "6e8e338c7fc37c9e",
+        "type": "http in",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "url": "/test",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "2c80c304c69b8ec3"
+            ]
+        ]
+    },
+    {
+        "id": "114316209b2b768d",
+        "type": "http response",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 430,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2c80c304c69b8ec3",
+        "type": "template",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "114316209b2b768d"
+            ]
+        ]
+    },
+    {
+        "id": "520a8f1a103e9e1e",
+        "type": "http response",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "14c95790600a5f36",
+        "type": "json",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "520a8f1a103e9e1e",
+                "c0d34f09d6efbbfc",
+                "4685805ca007f84b"
+            ]
+        ]
+    },
+    {
+        "id": "528407acab08957d",
+        "type": "debug",
+        "z": "1c071bcd100f1b74",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "e2db302e913a6618",
+        "type": "comment",
+        "z": "1c071bcd100f1b74",
+        "name": "flusso di test per provare il server",
+        "info": "",
+        "x": 170,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c0d34f09d6efbbfc",
+        "type": "function",
+        "z": "1c071bcd100f1b74",
+        "name": "function 1",
+        "func": "//dati ricevuti da ESP32\nlet tipo = msg.payload.tipo_sensore;\nlet val = msg.payload.valore;\nlet tempo = msg.payload.tempomisura;\n\nlet str = \"INSERT INTO dati_sensori \"+\n\"(tipo_misura,valore,tempomisura) \"+\n\"VALUES ('\"+tipo+\"',\"+val+\",'\"+tempo+\"')\";\n\nnode.warn(str);\n\nvar msg1 = {\"topic\":str};\nreturn msg1;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "528407acab08957d",
+                "67c6f1aa465bebe0"
+            ]
+        ]
+    },
+    {
+        "id": "e6b041a75513a3f0",
+        "type": "link in",
+        "z": "1c071bcd100f1b74",
+        "name": "dbin",
+        "links": [
+            "67c6f1aa465bebe0"
+        ],
+        "x": 235,
+        "y": 220,
+        "wires": [
+            [
+                "f728f1e1f315fada"
+            ]
+        ]
+    },
+    {
+        "id": "67c6f1aa465bebe0",
+        "type": "link out",
+        "z": "1c071bcd100f1b74",
+        "name": "to_database",
+        "mode": "link",
+        "links": [
+            "e6b041a75513a3f0"
+        ],
+        "x": 475,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b5b1f71b2640e764",
+        "type": "ui_gauge",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "group": "159b1a8f9c41b272",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 330,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "4685805ca007f84b",
+        "type": "change",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.valore",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "b5b1f71b2640e764",
+                "8d6bd5911021e66c"
+            ]
+        ]
+    },
+    {
+        "id": "8d6bd5911021e66c",
+        "type": "ui_chart",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "group": "159b1a8f9c41b272",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 330,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e8d8742c56b17d8b",
+        "type": "http in",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "url": "/vistadati",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 660,
+        "wires": [
+            [
+                "a37614008bdc52b6"
+            ]
+        ]
+    },
+    {
+        "id": "28a983672e701b69",
+        "type": "http response",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 490,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "2160acb64e8dbe29",
+        "type": "inject",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT * from dati_sensori LIMIT 10",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "f728f1e1f315fada"
+            ]
+        ]
+    },
+    {
+        "id": "f9d3a0e58ab9f38e",
+        "type": "change",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "table",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a37614008bdc52b6",
+        "type": "change",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "table",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 660,
+        "wires": [
+            [
+                "47c67171fd2a4650"
+            ]
+        ]
+    },
+    {
+        "id": "47c67171fd2a4650",
+        "type": "template",
+        "z": "1c071bcd100f1b74",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <body>\n        {{#payload}}\n        <p>{{tipo_misura}} - {{valore}}</p>\n        {{/payload}}\n    </body>\n</html>",
+        "output": "str",
+        "x": 320,
+        "y": 720,
+        "wires": [
+            [
+                "28a983672e701b69"
+            ]
+        ]
+    },
+    {
+        "id": "ea62c1215f41313b",
+        "type": "sqlitedb",
+        "db": "C:\\Users\\Docente\\Documents\\Lezioni_IOT\\sensori.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "159b1a8f9c41b272",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "f6bf052c570cb27b",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f6bf052c570cb27b",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
