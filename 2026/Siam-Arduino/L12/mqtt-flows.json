@@ -1,0 +1,286 @@
+[
+    {
+        "id": "327a573167d47c06",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ccd7e654892949ee",
+        "type": "mqtt in",
+        "z": "327a573167d47c06",
+        "name": "",
+        "topic": "/aula/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "b44199120ed67341",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "abc211511a456632"
+            ]
+        ]
+    },
+    {
+        "id": "c1170894efede251",
+        "type": "debug",
+        "z": "327a573167d47c06",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "693b031fa0ee3ebe",
+        "type": "ui_gauge",
+        "z": "327a573167d47c06",
+        "name": "",
+        "group": "2f4261cff6c50429",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 550,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8a841f4bf99f6598",
+        "type": "ui_button",
+        "z": "327a573167d47c06",
+        "name": "",
+        "group": "2f4261cff6c50429",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "LED ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "green",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 420,
+        "wires": [
+            [
+                "95bb3d1ff1f14f07",
+                "e3d1b5c7680ef799"
+            ]
+        ]
+    },
+    {
+        "id": "95bb3d1ff1f14f07",
+        "type": "debug",
+        "z": "327a573167d47c06",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "570744e4987725bb",
+        "type": "ui_button",
+        "z": "327a573167d47c06",
+        "name": "",
+        "group": "2f4261cff6c50429",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "LED OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 460,
+        "wires": [
+            [
+                "95bb3d1ff1f14f07",
+                "e3d1b5c7680ef799"
+            ]
+        ]
+    },
+    {
+        "id": "e3d1b5c7680ef799",
+        "type": "mqtt out",
+        "z": "327a573167d47c06",
+        "name": "",
+        "topic": "/paolo/123/led",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b44199120ed67341",
+        "x": 500,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3598febc5634bce9",
+        "type": "switch",
+        "z": "327a573167d47c06",
+        "name": "",
+        "property": "payload.id",
+        "propertyType": "jsonata",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "123",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "a2372fc69203d69c"
+            ]
+        ]
+    },
+    {
+        "id": "abc211511a456632",
+        "type": "json",
+        "z": "327a573167d47c06",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 330,
+        "y": 80,
+        "wires": [
+            [
+                "3598febc5634bce9",
+                "c1170894efede251"
+            ]
+        ]
+    },
+    {
+        "id": "a2372fc69203d69c",
+        "type": "change",
+        "z": "327a573167d47c06",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "693b031fa0ee3ebe"
+            ]
+        ]
+    },
+    {
+        "id": "b44199120ed67341",
+        "type": "mqtt-broker",
+        "name": "hivemq",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2f4261cff6c50429",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "bcfec5536d99507c",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bcfec5536d99507c",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
